@@ -11,7 +11,12 @@ export default function Home() {
     const preview = document.getElementById("preview") as HTMLDivElement;
     const newText = editor.value;
     setText(newText);
-    preview.innerHTML = marked(newText);
+    async function updatePreview() {
+      const markedText = marked(newText);
+      preview.innerHTML = await Promise.resolve(markedText);
+    }
+
+    updatePreview();
   }
 
   useEffect(() => {
