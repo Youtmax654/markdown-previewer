@@ -6,17 +6,15 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [text, setText] = useState("");
 
-  function getText() {
+  async function getText(): Promise<void> {
     const editor = document.getElementById("editor") as HTMLTextAreaElement;
     const preview = document.getElementById("preview") as HTMLDivElement;
     const newText = editor.value;
     setText(newText);
-    async function updatePreview() {
-      const markedText = marked(newText);
-      preview.innerHTML = await Promise.resolve(markedText);
-    }
 
-    updatePreview();
+    // Suppose that 'marked' function returns a Promise<string>
+    const markedText = await marked(newText);
+    preview.innerHTML = markedText;
   }
 
   useEffect(() => {
